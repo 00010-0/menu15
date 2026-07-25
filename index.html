@@ -223,9 +223,10 @@ footer.item{ padding-top:.8vh; }
 .subcat:not(:first-child){ margin-top:.9vh; }
 .bblock{ margin-bottom:.5vh; }
 #col-ext{ font-size:1.08vw; }
-#col-edibles{ font-size:1.08vw; }
-#col-edibles .name{ white-space:normal; line-height:1.12; }
-#col-edibles .row{ align-items:flex-start; }
+#col-vaps{ font-size:1.05vw; }
+.vprice{ font-weight:700; letter-spacing:-.02em; white-space:nowrap; margin-left:auto; color:var(--ice); text-shadow:0 0 10px rgba(63,227,92,.45); }
+#col-vaps .name{ white-space:normal; line-height:1.12; }
+#col-vaps .row{ align-items:flex-start; }
 .bhead{ display:flex; align-items:center; gap:.55vw; }
 .blogo{ flex:0 0 auto; width:2.05vw; height:2.05vw; max-width:48px; max-height:48px;
   object-fit:cover; border-radius:50%; box-shadow:0 0 0 1px rgba(63,227,92,.32), 0 0 12px rgba(63,227,92,.2); }
@@ -304,6 +305,10 @@ main{ transition: transform 4s ease-in-out; }
           <h2 class="cat text-[1.45vw] mb-[1.2vh]" style="animation-delay:1.05s">EDIBLES</h2>
           <ul id="col-edibles" class="flex-1 min-h-0 flex flex-col justify-around text-[1.3vw]"></ul>
         </div>
+        <div class="item panel p-[1.1vw] flex-1 flex flex-col min-h-0" style="animation-delay:.75s">
+          <h2 class="cat text-[1.45vw] mb-[1.2vh]" style="animation-delay:1.1s">VAPS</h2>
+          <ul id="col-vaps" class="flex-1 min-h-0 flex flex-col justify-around text-[1.3vw]"></ul>
+        </div>
         <div class="item panel p-[1.1vw] flex-1 flex flex-col min-h-0" style="animation-delay:.8s">
           <h2 class="cat text-[1.45vw] mb-[1.2vh]" style="animation-delay:1.15s">DRINKS</h2>
           <ul id="col-drinks" class="flex-1 min-h-0 flex flex-col justify-around text-[1.3vw]"></ul>
@@ -361,7 +366,8 @@ const WPFF = [
     items:[['Super Boof Cherry','90u']],
     note:'Washmachine 2g · 215€' },
 ];
-const EDIBLES = [['Gummies','25'],['Dirty Sprite','30'],['La Sagrada Farm BCN · Live Hash · Rosin · Vapes Mix','120']];
+const EDIBLES = [['Gummies','25'],['Dirty Sprite','30']];
+const VAPS    = [['La Sagrada Farm BCN · Live Hash · Rosin · Vapes Mix','1 x 120€']];
 const DRINKS  = [['Agua','1.50'],['Cola','2.50'],['Ice Tea','2.50'],['Redbull','3.00']];
 
 const row = (n,p)=>`
@@ -403,6 +409,7 @@ document.getElementById('col-ext').innerHTML =
   '<div class="subcat">ROSIN</div>' + ROSIN.map(brandBlock).join('') +
   '<div class="subcat">WPFF</div>' + WPFF.map(brandBlock).join('');
 document.getElementById('col-edibles').innerHTML = EDIBLES.map(([n,p])=>`<li>${row(n,p)}</li>`).join('');
+document.getElementById('col-vaps').innerHTML    = VAPS.map(([n,p])=>`<div class="row"><span class="name">${n}</span><span class="leader"></span><span class="vprice font-mono">${p}</span></div>`).join('');
 document.getElementById('col-drinks').innerHTML  = DRINKS.map(([n,p])=>`<li>${row(n,p)}</li>`).join('');
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -457,7 +464,7 @@ if (!reduced){
 
 /* ============ auto-ajuste: que nada se corte (cualquier resolución/stock) ============ */
 function fitAll(){
-  const els = ['col-weed','col-hash','col-ext','col-edibles','col-drinks']
+  const els = ['col-weed','col-hash','col-ext','col-edibles','col-vaps','col-drinks']
     .map(id => document.getElementById(id)).filter(Boolean);
   els.forEach(el => { el.style.transform = 'none'; el.style.transformOrigin = 'top center'; });
   const scales = els.map(el => {
